@@ -7,12 +7,19 @@ class Node {
 	public:
 		// the Node should contain
 		// 	- an integer "key" that holds the value of the Node
+		int key;
 		// 	- a pointer to each child possible child node ("right" and "left")
+		Node *left, *right;
 
 
 		// Write a constructor for the Node
 		// input: only an integer value for "key", no pointer arguments
 		// 		right and left pointers should be null
+		Node(int value){
+			left = nullptr;
+			right = nullptr;
+			key = value;
+		}
 
 };
 
@@ -22,7 +29,7 @@ class Node {
 Node* createTree() {
 	// root
 	Node *root = nullptr;
-
+	
 	// level 1 (children of root)
 
 	// level 2 (children of 0)
@@ -49,11 +56,17 @@ Node* createTree() {
 // You should write this function recursively! What is the base case? What is the general case?
 bool searchTree(int target, Node* root) {
 	// Base cases
-	return false;
-
+	if(root == nullptr){
+		return false;
+	}
+	else if (root ->key == target){
+		return true;
+	}
 	// General case
-	return false;
-	
+	else{
+		return searchTree(target, root ->right) + searchTree(target, root ->left);
+
+	}
 }
 
 // Write a function that will return the total number of Nodes in the tree
@@ -62,18 +75,31 @@ bool searchTree(int target, Node* root) {
 // You should write this function recursively!
 int treeSize(Node* root) {
 	// base case
-	return -1;
-
+	if(root == nullptr){
+		return 0;
+	}
 	// General case
-	return -1;
+	else{
+		return 1+treeSize(root->left)+treeSize(root->right);
+	}
+	
 
 }
 
 // BONUS! Write a function that will determine the height of the tree
 int treeHeight(Node* root) {
 	// base case
-	return -1;
-
+	if(root == nullptr){
+		return 0;
+	}
 	// General case
-	return -1;
+	else{
+		if(treeHeight(root -> right) > treeHeight(root -> left)){
+			return 1 + treeHeight(root->right);
+		}
+		else{
+			return 1 + treeHeight(root ->left);
+		}
+	}
+	
 }
